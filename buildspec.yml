@@ -15,17 +15,17 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...
       #- docker build --platform linux/amd64 -t $REPOSITORY_URI:latest .
-      - docker build -t 867497580682.dkr.ecr.us-west-2.amazonaws.com/demo:latest .
-      - docker tag 867497580682.dkr.ecr.us-west-2.amazonaws.com/demo:latest 867497580682.dkr.ecr.us-west-2.amazonaws.com/demo:$IMAGE_TAG
+      - docker build -t $REPOSITORY_URI:latest .
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker images...
-      - docker push 867497580682.dkr.ecr.us-west-2.amazonaws.com/demo:latest
-      - docker push 867497580682.dkr.ecr.us-west-2.amazonaws.com/demo:$IMAGE_TAG
+      - docker push $REPOSITORY_URI:latest
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Writing image definitions file...
       - printf '[{"name":"simple-app","imageUri":"%s"}]'
-        867497580682.dkr.ecr.us-west-2.amazonaws.com/demo:$IMAGE_TAG > imagedefinitions.json
+        $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
       - cat imagedefinitions.json
 artifacts:
   files: imagedefinitions.json
