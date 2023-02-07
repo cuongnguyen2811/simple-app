@@ -20,22 +20,21 @@ jobs:
           username: cuong2811
           password: 9%ZU7wpW8+KVJRm
       - name: Build and push Docker images
-        # You may pin to the exact commit or the version.
-        # uses: docker/setup-buildx-action@f03ac48505955848960e80bbb68046aa35c7b9e7
         uses: docker/build-push-action@v4.0.0
         with:
           context: .
           file: Dockerfile
           platforms: linux/amd64
-      - run: echo Build started on `date`
-      - run: echo Building the Docker image...
-      - run: docker build -t cuong2811/demo:latest .
-      - run: echo Build completed on `date`
-      - run: docker images
-      - run: echo Pushing the Docker images...
-      - run: docker push cuong2811/demo:latest
-      - run: docker run -d -p 8080:80 cuong2811/demo:latest
-      - run: docker ps
+      - run: |
+          echo Build started on `date`
+          echo Building the Docker image...
+          docker build -t cuong2811/demo:latest .
+          echo Build completed on `date`
+          docker images
+          echo Pushing the Docker images...
+          docker push cuong2811/demo:latest
+          docker run -d -p 8080:80 cuong2811/demo:latest
+          docker ps
       
       
         
