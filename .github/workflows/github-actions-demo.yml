@@ -14,6 +14,11 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      - name: Docker Login
+        uses: docker/login-action@v2.1.0
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Build and push Docker images
         uses: docker/build-push-action@v4.0.0
         with:
@@ -21,8 +26,6 @@ jobs:
           registry: docker.io
           platforms: linux/amd64
           tags: cuong2811/demo:latest
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
           push: true
 #       - run: |
 #           echo Build started on `date`
