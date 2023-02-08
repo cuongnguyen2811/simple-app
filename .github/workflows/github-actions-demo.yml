@@ -23,7 +23,6 @@ jobs:
         uses: docker/build-push-action@v4.0.0
         with:
           image: cuong2811/demo
-          registry: docker.io
           platforms: linux/amd64
           tags: cuong2811/demo:latest
           push: true
@@ -34,11 +33,6 @@ jobs:
 #           echo Build completed on `date`
 #           echo Pushing the Docker images...
 #           docker push cuong2811/demo:latest
-      - run: |
-          docker images
-          docker run -d -p 8080:80 cuong2811/demo:latest
-          docker ps
-      
-      
-        
-
+#           docker images
+#           docker run -d -p 8080:80 cuong2811/demo:latest
+#           docker ps
